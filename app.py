@@ -8,12 +8,11 @@ import numpy as np
 import random
 
 # -----------------------------------------------------------
-# Load data from GitHub (works on Render & localhost)
+# Load data
 # -----------------------------------------------------------
 @st.cache_data
 def load_data():
-    url = "https://github.com/manishachakraborty2007-coder/MNIST-Classification-Dashboard/raw/refs/heads/main/mnist_train.csv.gz"
-    return pd.read_csv(url, compression="gzip")
+    return pd.read_csv("mnist_train.csv")
 
 df = load_data()
 X = df.drop("label", axis=1)
@@ -135,9 +134,11 @@ elif page == "🧠 Model Training + Evaluation":
             ax2.set_title("Confusion Matrix")
             st.pyplot(fig2)
 
+            # --- Prediction preview grid
             st.markdown("### 🔍 Preview Predictions")
             num_images = st.slider("Number of images to preview", 4, 25, 9, step=1)
 
+            # random indices from test set
             indices = np.random.choice(len(y_test), num_images, replace=False)
             n_cols = int(np.ceil(np.sqrt(num_images)))
 
@@ -156,5 +157,8 @@ elif page == "🧠 Model Training + Evaluation":
         else:
             st.info("Please train the model first.")
 
+# -----------------------------------------------------------
+# Footer
+# -----------------------------------------------------------
 st.markdown("---")
 st.markdown("🔹 *© 2025 MNIST Classification Dashboard. All rights reserved.*")
