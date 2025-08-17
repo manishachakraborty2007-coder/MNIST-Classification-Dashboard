@@ -12,7 +12,7 @@ import random
 # -----------------------------------------------------------
 @st.cache_data
 def load_data():
-    return pd.read_csv("mnist_train.csv")
+    return pd.read_csv("mnist_train.csv.gz", compression="gzip")
 
 df = load_data()
 X = df.drop("label", axis=1)
